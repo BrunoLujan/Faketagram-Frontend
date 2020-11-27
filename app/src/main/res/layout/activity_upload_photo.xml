@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/black"
+    tools:context=".UploadPhoto">
+
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:text="Faketagram"
+            android:textAlignment="center"
+            android:textColor="#FFFFFFFF"
+            android:textSize="@android:dimen/app_icon_size"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5mm"
+            android:layout_marginVertical="10px"
+            android:text="Upload Photo"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFFFF"
+            android:autoSizeTextType="uniform"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageUploadPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:srcCompat="@drawable/ic_image_photograph"
+            tools:ignore="VectorDrawableCompat" />
+
+        <Button
+            android:layout_width="30mm"
+            android:layout_height="60dp"
+            android:text="Upload"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/yellow"
+            android:layout_marginVertical="80px"
+            android:layout_marginHorizontal="190dp"
+            android:id="@+id/btnUploadPhoto"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/black"
+    tools:context=".ui.gallery.GalleryFragment">
+
+    <LinearLayout
+        android:id="@+id/text_gallery"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5mm"
+            android:layout_marginVertical="90px"
+            android:layout_marginHorizontal="30dp"
+            android:text="My Profile"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFFFF"
+            android:autoSizeTextType="uniform"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5mm"
+            android:layout_marginHorizontal="120dp"
+            android:text="Name"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFFFF"
+            android:autoSizeTextType="uniform"/>
+
+        <Button
+            android:layout_width="25mm"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="120dp"
+            android:text="Edit Profile"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/yellow"
+            android:id="@+id/btnEditProfile"/>
+
+        <EditText
+            android:id="@+id/txtStatus"
+            android:layout_width="262dp"
+            android:layout_height="5mm"
+            android:layout_marginHorizontal="120dp"
+            android:layout_marginVertical="1dp"
+            android:background="@drawable/status_text"
+            android:ems="10"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="Status"
+            android:textColor="@color/white" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="4mm"
+            android:layout_marginHorizontal="1dp"
+            android:layout_marginTop="15dp"
+            android:text="My Photos"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFFFF"
+            android:autoSizeTextType="uniform"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:columnCount="3"
+            android:layout_marginTop="35dp"
+            android:rowCount="3">
+
+            <ImageView
+                android:layout_column="0"
+                android:layout_row="0"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+
+            <ImageView
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+
+            <ImageView
+                android:layout_column="2"
+                android:layout_row="0"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+
+            <ImageView
+                android:layout_column="0"
+                android:layout_row="1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+
+            <ImageView
+                android:layout_column="1"
+                android:layout_row="1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+
+            <ImageView
+                android:layout_column="2"
+                android:layout_row="1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+
+            <ImageView
+                android:layout_column="0"
+                android:layout_row="2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+
+            <ImageView
+                android:layout_column="1"
+                android:layout_row="2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+
+            <ImageView
+                android:layout_column="2"
+                android:layout_row="2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/ic_image_photograph"/>
+        </GridLayout>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_image_photograph"
+            android:layout_gravity="center"
+            android:layout_margin="5dp" />
+    </LinearLayout>
+
+</LinearLayout>
