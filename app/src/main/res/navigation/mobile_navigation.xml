@@ -15,11 +15,20 @@
         android:id="@+id/nav_gallery"
         android:name="com.example.faketagram_app.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_nav_gallery_to_uploadPhoto"
+            app:destination="@id/uploadPhoto" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.faketagram_app.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <activity
+        android:id="@+id/uploadPhoto"
+        android:name="com.example.faketagram_app.UploadPhoto"
+        android:label="activity_upload_photo"
+        tools:layout="@layout/activity_upload_photo" />
 </navigation>

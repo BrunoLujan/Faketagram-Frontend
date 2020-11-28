@@ -19,20 +19,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation"/>
 
-    <ImageView
-        android:id="@+id/imageUploadPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/ic_image_photograph"
-        tools:ignore="VectorDrawableCompat" />
-
-    <include
-        android:id="@+id/reactions"
-        layout="@layout/include_bar_reactions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="507dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
