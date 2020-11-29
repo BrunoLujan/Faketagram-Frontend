@@ -15,7 +15,7 @@
         android:id="@+id/nav_my_profile"
         android:name="com.example.faketagram_app.ui.gallery.GalleryFragment"
         android:label="My profile"
-        tools:layout="@layout/fragment_gallery" >
+        tools:layout="@layout/fragment_my_profile" >
         <action
             android:id="@+id/action_nav_gallery_to_uploadPhoto"
             app:destination="@id/uploadPhoto" />
@@ -25,10 +25,25 @@
         android:id="@+id/nav_my_favorites"
         android:name="com.example.faketagram_app.ui.slideshow.SlideshowFragment"
         android:label="My favourites"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_my_favourites" />
     <activity
         android:id="@+id/uploadPhoto"
         android:name="com.example.faketagram_app.UploadPhoto"
         android:label="activity_upload_photo"
         tools:layout="@layout/activity_upload_photo" />
+    <fragment
+        android:id="@+id/nav_configuration"
+        android:name="com.example.faketagram_app.ui.configuration.ConfigurationFragment"
+        android:label="Configuration"
+        tools:layout="@layout/fragment_configuration" />
+    <fragment
+        android:id="@+id/nav_following"
+        android:name="com.example.faketagram_app.ui.following.FollowingFragment"
+        android:label="Following"
+        tools:layout="@layout/fragment_following" />
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.example.faketagram_app.ui.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
