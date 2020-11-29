@@ -12,7 +12,11 @@
         <activity
             android:name=".UploadPhoto"
             android:label="UploadPhoto"
-            android:theme="@style/Theme.Faketagram_app.NoActionBar"></activity>
+            android:theme="@style/Theme.Faketagram_app.NoActionBar" />
+        <activity
+            android:name=".EditProfile"
+            android:label="EditProfile"
+            android:theme="@style/Theme.Faketagram_app.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

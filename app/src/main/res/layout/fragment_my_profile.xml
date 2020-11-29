@@ -18,31 +18,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="5mm"
-            android:layout_marginVertical="50px"
-            android:layout_marginHorizontal="30dp"
-            android:text="My Profile"
-            android:textAlignment="textStart"
-            android:textColor="#FFFFFFFF"
-            android:autoSizeTextType="uniform"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="5mm"
             android:layout_marginHorizontal="120dp"
+            android:layout_marginVertical="50px"
             android:text="Name"
             android:textAlignment="textStart"
             android:textColor="#FFFFFFFF"
             android:autoSizeTextType="uniform"/>
 
         <Button
+            android:id="@+id/btnEditProfile"
             android:layout_width="25mm"
             android:layout_height="40dp"
             android:layout_marginHorizontal="120dp"
             android:text="Edit Profile"
             android:textColor="@color/black"
-            android:backgroundTint="@color/yellow"
-            android:id="@+id/btnEditProfile"/>
+            android:backgroundTint="@color/yellow" />
 
         <EditText
             android:id="@+id/txtStatus"
@@ -140,7 +130,7 @@
         <Button
             android:layout_width="25mm"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="120dp"
+            android:layout_gravity="center"
             android:text="Add Photo"
             android:textColor="@color/black"
             android:backgroundTint="@color/yellow"
