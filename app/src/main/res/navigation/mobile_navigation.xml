@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_my_profile"
-        android:name="com.example.faketagram_app.ui.gallery.GalleryFragment"
+        android:name="com.example.faketagram_app.ui.profile.ProfileFragment"
         android:label="My profile"
         tools:layout="@layout/fragment_my_profile" >
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/nav_my_favorites"
-        android:name="com.example.faketagram_app.ui.slideshow.SlideshowFragment"
+        android:name="com.example.faketagram_app.ui.favourites.FavouritesFragment"
         android:label="My favourites"
         tools:layout="@layout/fragment_my_favourites" />
     <activity

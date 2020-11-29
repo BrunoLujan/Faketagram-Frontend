@@ -1,4 +1,4 @@
-package com.example.faketagram_app.ui.gallery;
+package com.example.faketagram_app.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.faketagram_app.R;
 import com.example.faketagram_app.UploadPhoto;
 
-public class GalleryFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
     View vista;
     Button btnAddPhoto;

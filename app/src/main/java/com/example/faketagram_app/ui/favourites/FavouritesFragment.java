@@ -1,4 +1,4 @@
-package com.example.faketagram_app.ui.slideshow;
+package com.example.faketagram_app.ui.favourites;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.faketagram_app.R;
 
-public class SlideshowFragment extends Fragment {
+public class FavouritesFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private FavouritesViewModel favouritesViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        favouritesViewModel =
+                new ViewModelProvider(this).get(FavouritesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_my_favourites, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        favouritesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
