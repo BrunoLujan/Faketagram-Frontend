@@ -148,13 +148,14 @@
                 app:srcCompat="@drawable/ic_image_photograph" />
         </GridLayout>
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/ic_image_photograph"
-            android:layout_gravity="center"
-            android:layout_margin="5dp" />
-
+        <Button
+            android:layout_width="25mm"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="120dp"
+            android:text="Add Photo"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/yellow"
+            android:id="@+id/btnAddPhoto"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
