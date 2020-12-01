@@ -32,11 +32,6 @@
         android:label="activity_upload_photo"
         tools:layout="@layout/activity_upload_photo" />
     <fragment
-        android:id="@+id/nav_configuration"
-        android:name="com.example.faketagram_app.ui.configuration.ConfigurationFragment"
-        android:label="Configuration"
-        tools:layout="@layout/fragment_configuration" />
-    <fragment
         android:id="@+id/nav_following"
         android:name="com.example.faketagram_app.ui.following.FollowingFragment"
         android:label="Following"

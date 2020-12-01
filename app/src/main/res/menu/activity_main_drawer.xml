@@ -24,9 +24,5 @@
             android:id="@+id/nav_following"
             android:icon="@drawable/ic_image_following"
             android:title="Following" />
-        <item
-            android:id="@+id/nav_configuration"
-            android:icon="@drawable/ic_image_settings"
-            android:title="Configuration" />
     </group>
 </menu>
