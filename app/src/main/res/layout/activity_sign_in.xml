@@ -29,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="50dp"
             android:textColor="#FFFFFFFF"
             android:textStyle="bold"
             android:text="Email"/>
@@ -39,7 +38,6 @@
             android:layout_width="303dp"
             android:layout_height="47dp"
             android:layout_marginTop="5dp"
-            android:layout_marginHorizontal="50dp"
             android:background="@drawable/edit_text_view"
             android:ems="10"
             android:gravity="center"
@@ -53,7 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="50dp"
             android:textColor="#FFFFFFFF"
             android:textStyle="bold"
             android:text="Password"/>
@@ -63,7 +60,7 @@
             android:layout_width="303dp"
             android:layout_height="47dp"
             android:layout_marginTop="5dp"
-            android:layout_marginHorizontal="50dp"
+
             android:background="@drawable/edit_text_view"
             android:ems="10"
             android:gravity="center"
