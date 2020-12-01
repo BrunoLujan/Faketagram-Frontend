@@ -44,10 +44,7 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
-            android:maxLines="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.462"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:maxLines="1"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -68,10 +65,7 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
-            android:maxLines="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.462"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:maxLines="1"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -92,10 +86,7 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
-            android:maxLines="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.462"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:maxLines="1"/>
 
         <Button
             android:id="@+id/btnSignUp"
@@ -107,5 +98,22 @@
             android:text="Sign Up"
             android:textStyle="bold"
             android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="269dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="95dp"
+            android:text="Have you already registered?"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnGoToSignIn"
+            android:layout_width="30mm"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="95dp"
+            android:text="SIGN IN"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/black"/>
     </LinearLayout>
 </LinearLayout>

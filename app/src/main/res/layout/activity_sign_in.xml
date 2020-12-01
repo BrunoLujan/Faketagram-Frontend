@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="50dp"
             android:textColor="#FFFFFFFF"
             android:textStyle="bold"
             android:text="Email"/>
@@ -38,19 +39,18 @@
             android:layout_width="303dp"
             android:layout_height="47dp"
             android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="50dp"
             android:background="@drawable/edit_text_view"
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
-            android:maxLines="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.462"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:maxLines="1"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="50dp"
             android:textColor="#FFFFFFFF"
             android:textStyle="bold"
             android:text="Password"/>
@@ -60,15 +60,12 @@
             android:layout_width="303dp"
             android:layout_height="47dp"
             android:layout_marginTop="5dp"
-
+            android:layout_marginHorizontal="50dp"
             android:background="@drawable/edit_text_view"
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
-            android:maxLines="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.462"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:maxLines="1" />
 
         <Button
             android:id="@+id/btnSignIn"
@@ -80,5 +77,22 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:backgroundTint="@color/yellow"/>
+
+        <TextView
+            android:layout_width="269dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="95dp"
+            android:text="Don't you have an account yet?"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="30mm"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="95dp"
+            android:text="Register now"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/black"/>
     </LinearLayout>
 </LinearLayout>

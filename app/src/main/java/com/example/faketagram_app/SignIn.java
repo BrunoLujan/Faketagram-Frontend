@@ -10,15 +10,15 @@ import android.widget.Button;
 
 public class SignIn extends AppCompatActivity {
 
-    View vista;
     Button btnSignIn;
+    Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        btnSignIn= (Button) findViewById(R.id.btnSignIn);
+        btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -26,5 +26,16 @@ public class SignIn extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignIn.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }

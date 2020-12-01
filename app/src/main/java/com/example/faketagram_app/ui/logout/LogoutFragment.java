@@ -1,12 +1,16 @@
 package com.example.faketagram_app.ui.logout;
 
+import android.content.ClipData;
 import android.os.Bundle;
 
+import androidx.appcompat.view.menu.MenuView;
+import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 import com.example.faketagram_app.R;
 
@@ -16,6 +20,8 @@ import com.example.faketagram_app.R;
  * create an instance of this fragment.
  */
 public class LogoutFragment extends Fragment {
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +68,6 @@ public class LogoutFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_logout, container, false);
+
     }
 }
