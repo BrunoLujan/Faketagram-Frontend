@@ -1,13 +1,12 @@
 package com.example.faketagram_app.interfaces;
 
-import androidx.core.content.res.FontResourcesParserCompat;
-
 import com.example.faketagram_app.model.Users;
+import com.example.faketagram_app.LoginRequest;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiService {
@@ -21,4 +20,8 @@ public interface ApiService {
          @Field("email") String email,
          @Field("password") String password
  );
+
+ @POST("login")
+ Call<Users> login(@Body LoginRequest user);
 }
+

@@ -2,30 +2,17 @@ package com.example.faketagram_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.accessibilityservice.GestureDescription;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import com.example.faketagram_app.model.Users;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class SignIn extends AppCompatActivity {
@@ -48,11 +35,12 @@ public class SignIn extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignIn.this, MainActivity.class);
+                //Intent intent = new Intent(SignIn.this, MainActivity.class);
+                //startActivity(intent);
                 if (validate()){
                     login();
-                    startActivity(intent);
-                }
+                } else
+                    Constant.Message(getApplicationContext(),"Complete all fields");
             }
         });
 
@@ -79,6 +67,25 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void login() {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail(txtEmail.getText().toString());
+        loginRequest.setPassword(txtPassword.getText().toString());
 
+        Call<Users> loginResponseCall = Constant.getUSerService().login(loginRequest);
+        loginResponseCall.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                if(response.isSuccessful()) {
+                    Intent intent = new Intent(SignIn.this, MainActivity.class);
+                    startActivity(intent);
+                }else
+                    Constant.Message(getApplicationContext(),"User/Password is incorrect");
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Constant.Message(getApplicationContext(),"Error, try again");
+            }
+        });
     }
 }

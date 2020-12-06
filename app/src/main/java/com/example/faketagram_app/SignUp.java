@@ -96,7 +96,7 @@ public class SignUp extends AppCompatActivity {
                     Intent intent = new Intent(SignUp.this, SignIn.class);
                     startActivity(intent);
                 }else
-                    Constant.Message(getApplicationContext(),"error");
+                    Constant.Message(getApplicationContext(),"Error, try again");
             }
 
             @Override
