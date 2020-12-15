@@ -1,12 +1,18 @@
 package com.example.faketagram_app.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Users {
     private int user_id;
     private String name;
-    private String lastName;
-    private String userName;
+    private String lastname;
+    private String username;
     private String email;
     private String password;
+    private String status;
+    private String cellphone;
+    private String image_storage_path;
 
     public int getUser_id() {
         return user_id;
@@ -24,20 +30,20 @@ public class Users {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -54,5 +60,29 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCellphone() {
+        return cellphone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
+
+    public String getImage_storage_path() {
+        return image_storage_path;
+    }
+
+    public void setImage_storage_path(String image_storage_path) {
+        this.image_storage_path = image_storage_path;
     }
 }

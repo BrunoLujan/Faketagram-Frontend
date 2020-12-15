@@ -2,17 +2,18 @@ package com.example.faketagram_app;
 
 import android.content.Context;
 import android.widget.Toast;
-
-import com.android.volley.toolbox.StringRequest;
 import com.example.faketagram_app.interfaces.ApiService;
+import com.example.faketagram_app.model.Users;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Constant {
-    public static final String URL = "http://192.168.0.2/";
-    public static String HOME = URL+"api/";
+    public static final String URL = "http://192.168.0.19/";
+    public static String HOME = URL+"api/user/";
     private static Retrofit retrofit;
+    public static ApiService CONNECTION;
+    public static Users LOGGEDUSER = new Users();
 
     public static Retrofit getRetrofit() {
         if(retrofit==null) {
@@ -24,9 +25,9 @@ public class Constant {
         return retrofit;
     }
 
-    public static ApiService getUSerService() {
+    public static void getUserService() {
         ApiService getUserService = getRetrofit().create(ApiService.class);
-        return getUserService;
+        CONNECTION = getUserService;
     }
 
     public static void Message(Context context, String message) {

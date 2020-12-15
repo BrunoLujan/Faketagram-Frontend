@@ -46,5 +46,6 @@ dependencies {
     compileOnly 'com.google.android.wearable:wearable:2.8.1'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation("com.squareup.moshi:moshi:1.11.0")
 
 }
