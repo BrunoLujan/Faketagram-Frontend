@@ -13,6 +13,7 @@ public class Constant {
     public static String HOME = URL+"api/user/";
     private static Retrofit retrofit;
     public static ApiService CONNECTION;
+    public static String AUTHTOKEN;
     public static Users LOGGEDUSER = new Users();
 
     public static Retrofit getRetrofit() {

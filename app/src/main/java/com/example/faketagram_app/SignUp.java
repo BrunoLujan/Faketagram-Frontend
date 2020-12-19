@@ -20,7 +20,6 @@ import retrofit2.Response;
 
 public class SignUp extends AppCompatActivity {
 
-    private ApiService service = Constant.getRetrofit().create(ApiService.class);
     Button btnGoToSignIn, btnSignUp;
     EditText txtName, txtLastName, txtUserName, txtEmail, txtPassword;
 
@@ -81,7 +80,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void signUp() {
-        Call<Users> call = service.signUpUser(
+        Call<Users> call = Constant.CONNECTION.signUpUser(
                 txtName.getText().toString(),
                 txtLastName.getText().toString(),
                 txtUserName.getText().toString(),

@@ -1,14 +1,33 @@
 package com.example.faketagram_app.ui.search;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebViewFragment;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.example.faketagram_app.Constant;
 import com.example.faketagram_app.R;
+import com.example.faketagram_app.UserRvAdapter;
+import com.example.faketagram_app.interfaces.ApiService;
+import com.example.faketagram_app.model.Users;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +40,14 @@ public class SearchFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    RecyclerView rv;
+    View viewFragment;
+    EditText txtSearchFragment;
+    Button btnSearchFragment;
+
+    List<Users> usersList;
+    UserRvAdapter adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,7 +87,54 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        viewFragment = inflater.inflate(R.layout.fragment_search, container, false);
+        rv = viewFragment.findViewById(R.id.rvSearchFragment);
+        txtSearchFragment = viewFragment.findViewById(R.id.txtSearch);
+        btnSearchFragment = viewFragment.findViewById(R.id.btnSearch);
+
+        btnSearchFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!txtSearchFragment.getText().toString().isEmpty()){
+                    searchUsers();
+                } else {
+                    Constant.Message(getContext(), "Complete the field");
+                }
+            }
+        });
+
+        return viewFragment;
+    }
+
+    public void searchUsers() {
+        Call<List<Users>> usersResponseCall = Constant.CONNECTION.getSearchUsers(Constant.AUTHTOKEN, txtSearchFragment.getText().toString());
+        usersResponseCall.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                if(response.isSuccessful()){
+                    usersList = response.body();
+                    buildRV();
+                    for(Users userAux : usersList){
+                        Log.d("SearchFragment", userAux.getName());
+                    }
+                } else {
+                    Constant.Message(getContext(),"AQUÍ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Constant.Message(getContext(),"onFailure-SearchUsers-SearchFragment");
+            }
+        });
+    }
+
+    private void buildRV() {
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(llm);
+
+        adapter = new UserRvAdapter(usersList);
+        rv.setAdapter(adapter);
+
     }
 }

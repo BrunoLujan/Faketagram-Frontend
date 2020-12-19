@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getDates(){
-        Call<Users> userResponseCall = Constant.CONNECTION.getUser(preferences.getString("token", null));
+        Call<Users> userResponseCall = Constant.CONNECTION.getLoggedUser(preferences.getString("token", null));
         if (preferences.getString("token", null) != null){
             userResponseCall.enqueue(new Callback<Users>() {
                 @Override

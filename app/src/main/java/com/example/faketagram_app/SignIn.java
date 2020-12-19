@@ -90,6 +90,7 @@ public class SignIn extends AppCompatActivity {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("token", response.body().getToken_type() + " " + response.body().getAccess_token());
                     editor.commit();
+                    Constant.AUTHTOKEN = response.body().getToken_type() + " " + response.body().getAccess_token();
                     Intent intent = new Intent(SignIn.this, MainActivity.class);
                     startActivity(intent);
                 }else

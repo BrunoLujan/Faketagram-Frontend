@@ -25,15 +25,15 @@
         android:id="@+id/txtNamesNavDrawer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:text="Names"
-        android:inputType="text"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/txtUserNameNavDrawer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:textSize="20dp"
         android:text="Username" />
 </LinearLayout>
