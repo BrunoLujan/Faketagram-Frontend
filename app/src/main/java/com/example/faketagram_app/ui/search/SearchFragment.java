@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.webkit.WebViewFragment;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.faketagram_app.Constant;
 import com.example.faketagram_app.R;
@@ -45,6 +46,7 @@ public class SearchFragment extends Fragment {
     View viewFragment;
     EditText txtSearchFragment;
     Button btnSearchFragment;
+    ImageView ivSearchFragment;
 
     List<Users> usersList;
     UserRvAdapter adapter;
@@ -91,6 +93,7 @@ public class SearchFragment extends Fragment {
         rv = viewFragment.findViewById(R.id.rvSearchFragment);
         txtSearchFragment = viewFragment.findViewById(R.id.txtSearch);
         btnSearchFragment = viewFragment.findViewById(R.id.btnSearch);
+        ivSearchFragment = viewFragment.findViewById(R.id.ivImageNavDrawer);
 
         btnSearchFragment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +138,5 @@ public class SearchFragment extends Fragment {
 
         adapter = new UserRvAdapter(usersList);
         rv.setAdapter(adapter);
-
     }
 }

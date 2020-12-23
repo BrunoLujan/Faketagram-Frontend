@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 
 public interface ApiService {
 
- @POST("sign_up")
+ @POST("signUp")
  @FormUrlEncoded
  Call<Users> signUpUser(
          @Field("name") String name,
@@ -36,7 +36,7 @@ public interface ApiService {
  @GET("user")
  Call<Users> getLoggedUser(@Header("Authorization") String authToken);
 
- @GET("{name}/get_name")
+ @GET("{name}/getName")
  Call<List<Users>> getSearchUsers(@Header("Authorization") String authToken, @Path("name") String name);
 }
 

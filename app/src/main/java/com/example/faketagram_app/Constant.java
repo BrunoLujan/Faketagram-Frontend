@@ -9,8 +9,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Constant {
-    public static final String URL = "http://192.168.0.19/";
-    public static String HOME = URL+"api/user/";
+    public static final String URL = "http://192.168.1.84/";
+    public static String HOME = URL + "api/user/";
+    public static String PROFILEIMAGE = URL + "storage/user/photos/";
     private static Retrofit retrofit;
     public static ApiService CONNECTION;
     public static String AUTHTOKEN;

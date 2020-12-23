@@ -3,12 +3,14 @@ package com.example.faketagram_app;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.faketagram_app.model.Users;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,11 +20,13 @@ public class UserRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         TextView tvUsername;
+        ImageView ivImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvNameUserListRow);
             tvUsername = itemView.findViewById(R.id.tvUsernameListRow);
+            ivImage = itemView.findViewById(R.id.ivImageUserListRow);
         }
     }
 
@@ -47,6 +51,9 @@ public class UserRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         UserRvAdapter.ViewHolder vh = (UserRvAdapter.ViewHolder) holder;
         vh.tvName.setText(users.get(position).getName() + " " + users.get(position).getLastname());
         vh.tvUsername.setText("@" + users.get(position).getUsername());
+        if (users.get(position).getImage_storage_path() != null) {
+            Picasso.get().load(Constant.PROFILEIMAGE + users.get(position).getImage_storage_path()).fit().into(vh.ivImage);
+        }
     }
 
     @Override

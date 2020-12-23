@@ -15,6 +15,7 @@ import com.example.faketagram_app.model.Users;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private TextView txtNamesNavDrawerMA, txtUserNameNavDrawerMA;
+    private ImageView ivNavDrawerMA;
     private SharedPreferences preferences;
 
     @Override
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         View hView = navigationView.getHeaderView(0);
         txtNamesNavDrawerMA = (TextView) hView.findViewById(R.id.txtNamesNavDrawer);
         txtUserNameNavDrawerMA = (TextView) hView.findViewById(R.id.txtUserNameNavDrawer);
+        ivNavDrawerMA = (ImageView) hView.findViewById(R.id.ivImageNavDrawer);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_my_profile, R.id.nav_my_favorites, R.id.nav_search, R.id.nav_following, R.id.nav_logout)
                 .setDrawerLayout(drawer)
@@ -89,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
                         if (response.body().getEmail() != null){
                             Constant.LOGGEDUSER = response.body();
                             txtNamesNavDrawerMA.setText(Constant.LOGGEDUSER.getName() + " " + Constant.LOGGEDUSER.getLastname());
-                            txtUserNameNavDrawerMA.setText(Constant.LOGGEDUSER.getUsername());
+                            txtUserNameNavDrawerMA.setText("@" + Constant.LOGGEDUSER.getUsername());
+                            Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivNavDrawerMA);
                         } else {
                             Log.d("BODY", "NEL");
                         }
