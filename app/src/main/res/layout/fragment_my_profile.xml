@@ -7,54 +7,88 @@
     android:background="@color/black"
     tools:context=".ui.profile.ProfileFragment">
 
+
+
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="5mm"
-            android:layout_marginHorizontal="120dp"
-            android:layout_marginVertical="50px"
-            android:text="Name"
-            android:textAlignment="textStart"
-            android:textColor="#FFFFFFFF"
-            android:autoSizeTextType="uniform"/>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnEditProfile"
-            android:layout_width="25mm"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="120dp"
-            android:text="Edit Profile"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/yellow" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivImageMyProfile"
+            android:layout_width="138dp"
+            android:layout_height="138dp"
+            android:src="@mipmap/ic_launcher_round"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_editor_absoluteY="24dp" />
 
-        <EditText
-            android:id="@+id/txtStatus"
-            android:layout_width="262dp"
-            android:layout_height="5mm"
-            android:layout_marginHorizontal="120dp"
-            android:layout_marginVertical="1dp"
-            android:background="@drawable/status_text"
-            android:ems="10"
-            android:inputType="text"
-            android:maxLines="1"
-            android:text="Status"
-            android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/txtNamesMyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Name"
+                    android:textAlignment="textStart"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnEditProfile"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/yellow"
+                    android:text="Edit Profile"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/txtStatusMyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginLeft="5dp"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="15sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:textStyle="italic"
+                    android:inputType="textMultiLine"
+                    android:gravity="top"
+                    android:text="Status"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="4mm"
             android:layout_marginHorizontal="1dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:autoSizeTextType="uniform"
             android:text="My Photos"
             android:textAlignment="textStart"
-            android:textColor="#FFFFFFFF"
-            android:autoSizeTextType="uniform"/>
+            android:textColor="#FFFFFFFF" />
 
         <GridLayout
             android:layout_width="match_parent"
@@ -128,13 +162,12 @@
         </GridLayout>
 
         <Button
-            android:layout_width="25mm"
-            android:layout_height="40dp"
+            android:id="@+id/btnAddPhoto"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:text="Add Photo"
-            android:textColor="@color/black"
             android:backgroundTint="@color/yellow"
-            android:id="@+id/btnAddPhoto"/>
+            android:drawableBottom="@drawable/ic_image_add" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
