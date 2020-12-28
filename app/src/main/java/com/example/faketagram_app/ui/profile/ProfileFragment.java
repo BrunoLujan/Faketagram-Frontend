@@ -26,8 +26,7 @@ public class ProfileFragment extends Fragment {
 
     ImageView ivImageMyProfile;
     TextView txtNamesProfileFragment, txtStatusProfileFragment;
-    Button btnAddPhoto;
-    Button btnEditProfile;
+    Button btnAddPhoto, btnEditProfile;
 
     public View onCreateView( LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {

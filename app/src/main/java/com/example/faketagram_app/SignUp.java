@@ -94,10 +94,9 @@ public class SignUp extends AppCompatActivity {
                     Constant.Message(getApplicationContext(), "User has been added");
                     Intent intent = new Intent(SignUp.this, SignIn.class);
                     startActivity(intent);
-                }else
+                } else
                     Constant.Message(getApplicationContext(),"Error, try again");
-            }
-
+                }
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 Log.d("ERROR", t.getMessage());

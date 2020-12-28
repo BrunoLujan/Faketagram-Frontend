@@ -27,11 +27,9 @@ public class SignIn extends AppCompatActivity {
     Button btnSignIn;
     Button btnRegister;
     EditText txtEmail, txtPassword;
-    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
@@ -39,8 +37,6 @@ public class SignIn extends AppCompatActivity {
 
         txtEmail = (EditText) findViewById(R.id.txtEmailSignIn);
         txtPassword = (EditText) findViewById(R.id.txtPasswordSignIn);
-
-        preferences = getSharedPreferences("preferences", MODE_PRIVATE);
 
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +61,9 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() { }
+
     private boolean validate() {
         if(txtEmail.getText().toString().isEmpty()) {
             return false;
@@ -87,9 +86,6 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.isSuccessful()) {
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("token", response.body().getToken_type() + " " + response.body().getAccess_token());
-                    editor.commit();
                     Constant.AUTHTOKEN = response.body().getToken_type() + " " + response.body().getAccess_token();
                     Intent intent = new Intent(SignIn.this, MainActivity.class);
                     startActivity(intent);

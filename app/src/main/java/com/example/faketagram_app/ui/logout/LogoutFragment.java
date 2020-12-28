@@ -1,18 +1,28 @@
 package com.example.faketagram_app.ui.logout;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.view.menu.MenuView;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.example.faketagram_app.Constant;
+import com.example.faketagram_app.EditProfile;
 import com.example.faketagram_app.R;
+import com.example.faketagram_app.SignIn;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +31,7 @@ import com.example.faketagram_app.R;
  */
 public class LogoutFragment extends Fragment {
 
-
+    View viewFragment;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,8 +76,33 @@ public class LogoutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_logout, container, false);
+        viewFragment = inflater.inflate(R.layout.fragment_search, container, false);
+        logout();
+        return viewFragment;
 
+    }
+
+    public void logout() {
+        Call<ResponseBody> call = Constant.CONNECTION.logout(Constant.AUTHTOKEN);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    Intent intent = new Intent(getActivity(), SignIn.class);
+                    Constant.AUTHTOKEN = null;
+                    Constant.LOGGEDUSER = null;
+                    startActivity(intent);
+                } else {
+                    Constant.Message(getContext(), "Error, try again: " + response.message());
+                    Log.d("ERROR-LogoutFragment-logout", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Constant.Message(getContext(), t.getMessage());
+                Log.d("ERROR LOGOUT FRAGMENT", t.getMessage());
+            }
+        });
     }
 }

@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private TextView txtNamesNavDrawerMA, txtUserNameNavDrawerMA;
     private ImageView ivNavDrawerMA;
-    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        preferences = getSharedPreferences("preferences", MODE_PRIVATE);
         getDates();
     }
+
+    @Override
+    public void onBackPressed() { }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,22 +84,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getDates(){
-        Call<Users> userResponseCall = Constant.CONNECTION.getLoggedUser(preferences.getString("token", null));
-        if (preferences.getString("token", null) != null){
+        Call<Users> userResponseCall = Constant.CONNECTION.getLoggedUser(Constant.AUTHTOKEN);
+        if (Constant.AUTHTOKEN != null){
             userResponseCall.enqueue(new Callback<Users>() {
                 @Override
                 public void onResponse(Call<Users> call, Response<Users> response) {
                     if (response.isSuccessful()){
                         if (response.body().getEmail() != null){
                             Constant.LOGGEDUSER = response.body();
+                            Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivNavDrawerMA);
                             txtNamesNavDrawerMA.setText(Constant.LOGGEDUSER.getName() + " " + Constant.LOGGEDUSER.getLastname());
                             txtUserNameNavDrawerMA.setText("@" + Constant.LOGGEDUSER.getUsername());
-                            Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivNavDrawerMA);
                         } else {
                             Log.d("BODY", "NEL");
                         }
                     } else {
-                        Constant.Message(getApplicationContext(),(preferences.getString("token", null)));
+                        Constant.Message(getApplicationContext(),Constant.AUTHTOKEN);
                     }
                 }
 

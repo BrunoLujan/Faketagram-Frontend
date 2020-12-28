@@ -49,11 +49,13 @@ public class UserRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         UserRvAdapter.ViewHolder vh = (UserRvAdapter.ViewHolder) holder;
-        vh.tvName.setText(users.get(position).getName() + " " + users.get(position).getLastname());
-        vh.tvUsername.setText("@" + users.get(position).getUsername());
+
         if (users.get(position).getImage_storage_path() != null) {
             Picasso.get().load(Constant.PROFILEIMAGE + users.get(position).getImage_storage_path()).fit().into(vh.ivImage);
         }
+
+        vh.tvName.setText(users.get(position).getName() + " " + users.get(position).getLastname());
+        vh.tvUsername.setText("@" + users.get(position).getUsername());
     }
 
     @Override
