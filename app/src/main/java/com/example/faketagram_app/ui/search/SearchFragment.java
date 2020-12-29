@@ -16,6 +16,7 @@ import android.webkit.WebViewFragment;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.faketagram_app.Constant;
 import com.example.faketagram_app.R;
@@ -137,6 +138,15 @@ public class SearchFragment extends Fragment {
         rv.setLayoutManager(llm);
 
         adapter = new UserRvAdapter(usersList);
+
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Constant.Message(getContext(), "Selección: " + usersList.get
+                        (rv.getChildAdapterPosition(v)).getUsername());
+            }
+        });
+
         rv.setAdapter(adapter);
     }
 }

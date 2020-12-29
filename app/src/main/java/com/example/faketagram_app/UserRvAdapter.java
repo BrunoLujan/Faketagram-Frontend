@@ -14,8 +14,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class UserRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class UserRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+    implements View.OnClickListener {
+
     List<Users> users;
+    View.OnClickListener clickListener;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
@@ -43,6 +46,7 @@ public class UserRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 false);
 
         UserRvAdapter.ViewHolder vh = new UserRvAdapter.ViewHolder(v);
+        v.setOnClickListener(this);
         return vh;
     }
 
@@ -61,5 +65,16 @@ public class UserRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return users.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(clickListener != null) {
+            clickListener.onClick(v);
+        }
+    }
+
+    public void setOnClickListener(View.OnClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 }

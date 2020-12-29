@@ -1,6 +1,7 @@
 package com.example.faketagram_app.interfaces;
 
 import com.example.faketagram_app.LoginResponse;
+import com.example.faketagram_app.StatusRequest;
 import com.example.faketagram_app.model.Users;
 import com.example.faketagram_app.LoginRequest;
 
@@ -44,8 +45,11 @@ public interface ApiService {
  @GET("{name}/getName")
  Call<List<Users>> getSearchUsers(@Header("Authorization") String authToken, @Path("name") String name);
 
- @Multipart
  @POST("uploadProfilePhoto")
-Call<ResponseBody> uploadProfilePhoto(@Header("Authorization") String authToken, @Part MultipartBody.Part file);
+ @Multipart
+ Call<ResponseBody> uploadProfilePhoto(@Header("Authorization") String authToken, @Part MultipartBody.Part file);
+
+ @POST("updateStatus")
+ Call<ResponseBody> updateStatus(@Header("Authorization") String authToken, @Body StatusRequest status);
 }
 

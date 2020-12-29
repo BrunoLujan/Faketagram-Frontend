@@ -83,11 +83,11 @@ public class EditProfile extends AppCompatActivity {
         btnSaveChangesEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadNewPhoto();
+                saveChanges();
             }
         });
 
-        Constant.Message(getApplicationContext(), "Login again to apply new changes");
+        Constant.Message(getApplicationContext(), "You must login again to apply changes");
     }
 
     public void showSelectedImage() {
@@ -105,34 +105,9 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
-    public void uploadNewPhoto() {
-        if (imageFileURI == null) {
-            Constant.Message(getApplicationContext(), "First select a photo");
-        } else {
-            File imageFile = new File(getRealPathFromURI(imageFileURI));
-            RequestBody requestBody = RequestBody.create(MediaType.parse("images/jpeg"), imageFile);
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("image_storage_path", imageFile.getName(), requestBody);
+    public void saveChanges() {
+        uploadProfilePhoto();
 
-            Call<ResponseBody> call = Constant.CONNECTION.uploadProfilePhoto(Constant.AUTHTOKEN,filePart);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if(response.isSuccessful()) {
-                        Constant.Message(getApplicationContext(), "New photo has been upload");
-                        logout();
-                    } else {
-                        Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
-                        Log.d("ERROR-EditProfile-uploadNewPhoto-onResponse", response.message());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Constant.Message(getApplicationContext(), t.getMessage());
-                    Log.d("ERROR EDIT PROFILE", t.getMessage());
-                }
-            });
-        }
     }
 
     public String getRealPathFromURI(Uri uri) {
@@ -184,6 +159,59 @@ public class EditProfile extends AppCompatActivity {
                 Constant.Message(getApplicationContext(), "Permission DENIED");
             }
         }
+    }
+
+    public void uploadProfilePhoto(){
+        if (imageFileURI != null){
+            File imageFile = new File(getRealPathFromURI(imageFileURI));
+            RequestBody requestBody = RequestBody.create(MediaType.parse("images/jpeg"), imageFile);
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("image_storage_path", imageFile.getName(), requestBody);
+
+            Call<ResponseBody> call = Constant.CONNECTION.uploadProfilePhoto(Constant.AUTHTOKEN,filePart);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if(response.isSuccessful()) {
+                        updateStatus();
+                    } else {
+                        Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
+                        Log.d("ERROR-EditProfile-uploadProfilePhoto-onResponse", response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Constant.Message(getApplicationContext(), t.getMessage());
+                    Log.d("ERROR EDIT PROFILE", t.getMessage());
+                }
+            });
+        } else {
+            updateStatus();
+        }
+    }
+
+    public void updateStatus() {
+        StatusRequest status = new StatusRequest();
+        status.setStatus(txtStatusEditProfile.getText().toString());
+        Call<ResponseBody> call = Constant.CONNECTION.updateStatus(Constant.AUTHTOKEN, status);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Constant.Message(getApplicationContext(), "New changes has been upload");
+                    logout();
+                } else {
+                    Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
+                    Log.d("ERROR-EditProfile-updateStatus-onResponse", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Constant.Message(getApplicationContext(), t.getMessage());
+                Log.d("ERROR EDIT PROFILE", t.getMessage());
+            }
+        });
     }
 
     public void logout() {
