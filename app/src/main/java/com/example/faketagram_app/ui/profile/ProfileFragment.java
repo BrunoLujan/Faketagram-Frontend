@@ -55,11 +55,11 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        setUserOnProfile();
+        initializeMyProfile();
         return viewFragment;
     }
 
-    public void setUserOnProfile() {
+    public void initializeMyProfile() {
         if (Constant.LOGGEDUSER.getImage_storage_path() != null) {
             Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivImageMyProfile);
         }

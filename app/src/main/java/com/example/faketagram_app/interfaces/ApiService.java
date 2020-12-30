@@ -1,5 +1,6 @@
 package com.example.faketagram_app.interfaces;
 
+import com.example.faketagram_app.FollowResponse;
 import com.example.faketagram_app.LoginResponse;
 import com.example.faketagram_app.StatusRequest;
 import com.example.faketagram_app.model.Users;
@@ -12,6 +13,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -51,5 +53,17 @@ public interface ApiService {
 
  @POST("updateStatus")
  Call<ResponseBody> updateStatus(@Header("Authorization") String authToken, @Body StatusRequest status);
+
+ @POST("{user_followed_id}/followUser")
+ Call<ResponseBody> followUser(@Header("Authorization") String authToken, @Path("user_followed_id") int user_followed_id);
+
+ @DELETE("{user_followed_id}/unfollowUser")
+ Call<ResponseBody> unfollowUser(@Header("Authorization") String authToken, @Path("user_followed_id") int user_followed_id);
+
+ @GET("following")
+ Call<List<FollowResponse>> getFollowings(@Header("Authorization") String authToken);
+
+ @GET("followers")
+ Call<List<FollowResponse>> getFollowers(@Header("Authorization") String authToken);
 }
 

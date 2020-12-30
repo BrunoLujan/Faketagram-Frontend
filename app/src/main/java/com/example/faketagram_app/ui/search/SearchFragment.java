@@ -1,5 +1,6 @@
 package com.example.faketagram_app.ui.search;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
+import android.telephony.mbms.MbmsErrors;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.faketagram_app.Constant;
 import com.example.faketagram_app.R;
+import com.example.faketagram_app.UserProfileActivity;
 import com.example.faketagram_app.UserRvAdapter;
 import com.example.faketagram_app.interfaces.ApiService;
 import com.example.faketagram_app.model.Users;
@@ -139,14 +143,31 @@ public class SearchFragment extends Fragment {
 
         adapter = new UserRvAdapter(usersList);
 
+        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constant.Message(getContext(), "Selección: " + usersList.get
+                intent.putExtra("userSelectedId", usersList.get
+                        (rv.getChildAdapterPosition(v)).getUser_id());
+                intent.putExtra("userSelectedName", usersList.get
+                        (rv.getChildAdapterPosition(v)).getName());
+                intent.putExtra("userSelectedLastName", usersList.get
+                        (rv.getChildAdapterPosition(v)).getLastname());
+                intent.putExtra("userSelectedUsername", usersList.get
                         (rv.getChildAdapterPosition(v)).getUsername());
+                intent.putExtra("userSelectedEmail", usersList.get
+                        (rv.getChildAdapterPosition(v)).getEmail());
+                intent.putExtra("userSelectedPassword", usersList.get
+                        (rv.getChildAdapterPosition(v)).getPassword());
+                intent.putExtra("userSelectedStatus", usersList.get
+                        (rv.getChildAdapterPosition(v)).getStatus());
+                intent.putExtra("userSelectedCellphone", usersList.get
+                        (rv.getChildAdapterPosition(v)).getCellphone());
+                intent.putExtra("userSelectedImage", usersList.get
+                        (rv.getChildAdapterPosition(v)).getImage_storage_path());
+                startActivity(intent);
             }
         });
-
         rv.setAdapter(adapter);
     }
 }
