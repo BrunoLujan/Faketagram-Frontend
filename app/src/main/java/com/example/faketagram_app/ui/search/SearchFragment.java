@@ -42,19 +42,18 @@ import retrofit2.Response;
  */
 public class SearchFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     RecyclerView rv;
     View viewFragment;
     EditText txtSearchFragment;
     Button btnSearchFragment;
-    ImageView ivSearchFragment;
 
     List<Users> usersList;
     UserRvAdapter adapter;
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -98,7 +97,6 @@ public class SearchFragment extends Fragment {
         rv = viewFragment.findViewById(R.id.rvSearchFragment);
         txtSearchFragment = viewFragment.findViewById(R.id.txtSearch);
         btnSearchFragment = viewFragment.findViewById(R.id.btnSearch);
-        ivSearchFragment = viewFragment.findViewById(R.id.ivImageNavDrawer);
 
         btnSearchFragment.setOnClickListener(new View.OnClickListener() {
             @Override

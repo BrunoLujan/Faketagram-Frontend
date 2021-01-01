@@ -42,14 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View hView = navigationView.getHeaderView(0);
@@ -57,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         txtUserNameNavDrawerMA = (TextView) hView.findViewById(R.id.txtUserNameNavDrawer);
         ivNavDrawerMA = (ImageView) hView.findViewById(R.id.ivImageNavDrawer);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_my_profile, R.id.nav_my_favorites, R.id.nav_search, R.id.nav_following, R.id.nav_logout)
+                R.id.nav_home, R.id.nav_my_profile, R.id.nav_my_favorites, R.id.nav_search, R.id.nav_following, R.id.nav_follower, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -92,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         if (response.body().getEmail() != null){
                             Constant.LOGGEDUSER = response.body();
-                            Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivNavDrawerMA);
+                            if (Constant.LOGGEDUSER.getImage_storage_path() != null){
+                                Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivNavDrawerMA);
+                            }
                             txtNamesNavDrawerMA.setText(Constant.LOGGEDUSER.getName() + " " + Constant.LOGGEDUSER.getLastname());
                             txtUserNameNavDrawerMA.setText("@" + Constant.LOGGEDUSER.getUsername());
                         } else {

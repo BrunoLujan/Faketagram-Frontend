@@ -56,7 +56,10 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         ivImageEditProfile = (ImageView) findViewById(R.id.ivImageEditProfile);
-        Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivImageEditProfile);
+
+        if(Constant.LOGGEDUSER.getImage_storage_path() != null ){
+            Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivImageEditProfile);
+        }
 
         txtStatusEditProfile = (EditText) findViewById(R.id.txtStatusEditProfile);
         btnSelectFileEditProfile = (Button) findViewById(R.id.btnSelectFileEditProfile);

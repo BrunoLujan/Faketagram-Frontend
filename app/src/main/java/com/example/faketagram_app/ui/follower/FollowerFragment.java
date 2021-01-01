@@ -1,10 +1,7 @@
-package com.example.faketagram_app.ui.following;
+package com.example.faketagram_app.ui.follower;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,40 +12,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.faketagram_app.Constant;
 import com.example.faketagram_app.FollowResponse;
 import com.example.faketagram_app.R;
-import com.example.faketagram_app.UserProfileActivity;
 import com.example.faketagram_app.UserRvAdapter;
 import com.example.faketagram_app.model.Users;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FollowingFragment#newInstance} factory method to
+ * Use the {@link FollowerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FollowingFragment extends Fragment {
+public class FollowerFragment extends Fragment {
 
     RecyclerView rv;
     View viewFragment;
-    EditText txtFollowingFragment;
-    Button btnFollowingFragment, btnShowFollowingFragment;
+    EditText txtFollowerFragment;
+    Button btnFollowerFragment, btnShowFollowerFragment;
 
-    List<FollowResponse> followingsList;
+    List<FollowResponse> followersList;
     List<Users> usersList = new ArrayList<>();
     UserRvAdapter adapter;
 
@@ -63,7 +53,7 @@ public class FollowingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FollowingFragment() {
+    public FollowerFragment() {
         // Required empty public constructor
     }
 
@@ -73,11 +63,11 @@ public class FollowingFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment followingFragment.
+     * @return A new instance of fragment FollowerFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FollowingFragment newInstance(String param1, String param2) {
-        FollowingFragment fragment = new FollowingFragment();
+    public static FollowerFragment newInstance(String param1, String param2) {
+        FollowerFragment fragment = new FollowerFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -97,16 +87,16 @@ public class FollowingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        viewFragment = inflater.inflate(R.layout.fragment_following, container, false);
-        rv = viewFragment.findViewById(R.id.rvFollowingsFragment);
-        txtFollowingFragment = viewFragment.findViewById(R.id.txtSearchFollowing);
-        btnFollowingFragment = viewFragment.findViewById(R.id.btnSearchFollowing);
-        btnShowFollowingFragment = viewFragment.findViewById(R.id.btnShowFollowing);
+        viewFragment = inflater.inflate(R.layout.fragment_follower, container, false);
+        rv = viewFragment.findViewById(R.id.rvFollowersFragment);
+        txtFollowerFragment = viewFragment.findViewById(R.id.txtSearchFollower);
+        btnFollowerFragment = viewFragment.findViewById(R.id.btnSearchFollower);
+        btnShowFollowerFragment = viewFragment.findViewById(R.id.btnShowFollower);
 
-        btnFollowingFragment.setOnClickListener(new View.OnClickListener() {
+        btnFollowerFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!txtFollowingFragment.getText().toString().isEmpty()){
+                if (!txtFollowerFragment.getText().toString().isEmpty()){
 
                 } else {
                     Constant.Message(getContext(), "Complete the field");
@@ -114,10 +104,10 @@ public class FollowingFragment extends Fragment {
             }
         });
 
-        btnShowFollowingFragment.setOnClickListener(new View.OnClickListener() {
+        btnShowFollowerFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initializeFollowings();
+                initializeFollowers();
                 buildRV();
             }
         });
@@ -125,30 +115,30 @@ public class FollowingFragment extends Fragment {
         return viewFragment;
     }
 
-    public void initializeFollowings() {
-        Call<List<FollowResponse>> usersResponseCall = Constant.CONNECTION.getFollowings(Constant.AUTHTOKEN);
+    public void initializeFollowers() {
+        Call<List<FollowResponse>> usersResponseCall = Constant.CONNECTION.getFollowers(Constant.AUTHTOKEN);
         usersResponseCall.enqueue(new Callback<List<FollowResponse>>() {
             @Override
             public void onResponse(Call<List<FollowResponse>> call, Response<List<FollowResponse>> response) {
                 if(response.isSuccessful()){
-                    followingsList = response.body();
-                    getFollowing();
+                    followersList = response.body();
+                    getFollowers();
                 } else {
-                    Constant.Message(getContext(),"Error-FollowingFragment-initializeFollowings-onResponse");
+                    Constant.Message(getContext(),"Error-FollowerFragment-initializeFollowers-onResponse");
                 }
             }
 
             @Override
             public void onFailure(Call<List<FollowResponse>> call, Throwable t) {
-                Log.d("Error-FollowingFragment-initializeFollowings-onFailure: ", t.getMessage());
-                Constant.Message(getContext(),"Error-FollowingFragment-initializeFollowings-onFailure");
+                Log.d("Error-FollowingFragment-initializeFollowers-onFailure: ", t.getMessage());
+                Constant.Message(getContext(),"Error-FollowersFragment-initializeFollowers-onFailure");
             }
         });
     }
 
-    public void getFollowing () {
-        for(FollowResponse followAux : followingsList){
-            Call<Users> call = Constant.CONNECTION.getUserById(Constant.AUTHTOKEN, followAux.getUser_followed_id());
+    public void getFollowers () {
+        for(FollowResponse followAux : followersList){
+            Call<Users> call = Constant.CONNECTION.getUserById(Constant.AUTHTOKEN, followAux.getUser_follower_id());
             call.enqueue(new Callback<Users>() {
                 @Override
                 public void onResponse(Call<Users> call, Response<Users> response) {
@@ -156,14 +146,14 @@ public class FollowingFragment extends Fragment {
                         usersList.add(counter, response.body());
                         counter++;
                     } else {
-                        Constant.Message(getContext(),"Error-FollowingFragment-getFollowings-onResponse");
+                        Constant.Message(getContext(),"Error-FollowersFragment-getFollowers-onResponse");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Users> call, Throwable t) {
-                    Log.d("Error-FollowingFragment-getFollowings-onFailure: ", t.getMessage());
-                    Constant.Message(getContext(),"Error-FollowingFragment-getFollowings-onFailure: " + t.getMessage());
+                    Log.d("Error-FollowingFragment-getFollowers-onFailure: ", t.getMessage());
+                    Constant.Message(getContext(),"Error-FollowerFragment-getFollowers-onFailure: " + t.getMessage());
                 }
             });
         }

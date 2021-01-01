@@ -18,6 +18,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -61,9 +62,18 @@ public interface ApiService {
  Call<ResponseBody> unfollowUser(@Header("Authorization") String authToken, @Path("user_followed_id") int user_followed_id);
 
  @GET("following")
+ @Headers({
+         "Accept: identity"})
  Call<List<FollowResponse>> getFollowings(@Header("Authorization") String authToken);
 
  @GET("followers")
+ @Headers({
+         "Accept: identity"})
  Call<List<FollowResponse>> getFollowers(@Header("Authorization") String authToken);
+
+ @GET("{user_id}/getUser")
+ @Headers({
+         "Accept: identity"})
+ Call<Users> getUserById(@Header("Authorization") String authToken, @Path("user_id") int user_id);
 }
 

@@ -21,9 +21,13 @@
             android:icon="@drawable/ic_image_search"
             android:title="Search" />
         <item
+            android:id="@+id/nav_follower"
+            android:icon="@drawable/ic_image_follower"
+            android:title="Followers" />
+        <item
             android:id="@+id/nav_following"
             android:icon="@drawable/ic_image_following"
-            android:title="Following" />
+            android:title="Followings" />
         <item
             android:title=" "
             android:enabled="false"/>
