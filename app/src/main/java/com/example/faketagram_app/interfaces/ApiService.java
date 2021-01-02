@@ -52,6 +52,10 @@ public interface ApiService {
  @Multipart
  Call<ResponseBody> uploadProfilePhoto(@Header("Authorization") String authToken, @Part MultipartBody.Part file);
 
+ @POST("uploadFeedPhoto")
+ @Multipart
+ Call<ResponseBody> uploadFeedPhoto(@Header("Authorization") String authToken, @Part MultipartBody.Part file);
+
  @POST("updateStatus")
  Call<ResponseBody> updateStatus(@Header("Authorization") String authToken, @Body StatusRequest status);
 

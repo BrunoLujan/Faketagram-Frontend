@@ -56,14 +56,13 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         ivImageEditProfile = (ImageView) findViewById(R.id.ivImageEditProfile);
+        txtStatusEditProfile = (EditText) findViewById(R.id.txtStatusEditProfile);
+        btnSelectFileEditProfile = (Button) findViewById(R.id.btnSelectFileEditProfile);
+        btnSaveChangesEditProfile = (Button) findViewById(R.id.btnSaveChangesEditProfile);
 
         if(Constant.LOGGEDUSER.getImage_storage_path() != null ){
             Picasso.get().load(Constant.PROFILEIMAGE + Constant.LOGGEDUSER.getImage_storage_path()).fit().into(ivImageEditProfile);
         }
-
-        txtStatusEditProfile = (EditText) findViewById(R.id.txtStatusEditProfile);
-        btnSelectFileEditProfile = (Button) findViewById(R.id.btnSelectFileEditProfile);
-        btnSaveChangesEditProfile = (Button) findViewById(R.id.btnSaveChangesEditProfile);
 
         if (Constant.LOGGEDUSER.getStatus() != null) {
             txtStatusEditProfile.setText(Constant.LOGGEDUSER.getStatus());
@@ -110,7 +109,6 @@ public class EditProfile extends AppCompatActivity {
 
     public void saveChanges() {
         uploadProfilePhoto();
-
     }
 
     public String getRealPathFromURI(Uri uri) {
@@ -170,8 +168,9 @@ public class EditProfile extends AppCompatActivity {
             RequestBody requestBody = RequestBody.create(MediaType.parse("images/jpeg"), imageFile);
             MultipartBody.Part filePart = MultipartBody.Part.createFormData("image_storage_path", imageFile.getName(), requestBody);
 
-            Call<ResponseBody> call = Constant.CONNECTION.uploadProfilePhoto(Constant.AUTHTOKEN,filePart);
+            Call<ResponseBody> call = Constant.CONNECTION.uploadProfilePhoto(Constant.AUTHTOKEN, filePart);
             call.enqueue(new Callback<ResponseBody>() {
+
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if(response.isSuccessful()) {
