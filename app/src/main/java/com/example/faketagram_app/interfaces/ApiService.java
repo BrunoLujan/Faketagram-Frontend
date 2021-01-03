@@ -3,6 +3,7 @@ package com.example.faketagram_app.interfaces;
 import com.example.faketagram_app.FollowResponse;
 import com.example.faketagram_app.LoginResponse;
 import com.example.faketagram_app.StatusRequest;
+import com.example.faketagram_app.model.Photographs;
 import com.example.faketagram_app.model.Users;
 import com.example.faketagram_app.LoginRequest;
 
@@ -79,5 +80,8 @@ public interface ApiService {
  @Headers({
          "Accept: identity"})
  Call<Users> getUserById(@Header("Authorization") String authToken, @Path("user_id") int user_id);
+
+ @GET("{user_id}/getUserPhotographs")
+ Call<List<Photographs>> getPhotographsByUserId(@Header("Authorization") String authToken, @Path("user_id") int user_id);
 }
 

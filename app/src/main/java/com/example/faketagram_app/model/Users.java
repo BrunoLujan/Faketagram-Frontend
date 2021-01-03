@@ -1,8 +1,5 @@
 package com.example.faketagram_app.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Users {
     private int user_id;
     private String name;

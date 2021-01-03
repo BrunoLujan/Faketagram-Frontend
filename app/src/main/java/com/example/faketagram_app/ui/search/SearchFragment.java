@@ -42,8 +42,9 @@ import retrofit2.Response;
  */
 public class SearchFragment extends Fragment {
 
-    RecyclerView rv;
     View viewFragment;
+    RecyclerView rv;
+
     EditText txtSearchFragment;
     Button btnSearchFragment;
 
@@ -94,6 +95,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewFragment = inflater.inflate(R.layout.fragment_search, container, false);
+
         rv = viewFragment.findViewById(R.id.rvSearchFragment);
         txtSearchFragment = viewFragment.findViewById(R.id.txtSearch);
         btnSearchFragment = viewFragment.findViewById(R.id.btnSearch);
