@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.faketagram_app.Constant;
 import com.example.faketagram_app.EditProfile;
 import com.example.faketagram_app.ImageRvAdapter;
+import com.example.faketagram_app.PhotographActivity;
 import com.example.faketagram_app.R;
 import com.example.faketagram_app.UploadPhoto;
+import com.example.faketagram_app.UserProfileActivity;
 import com.example.faketagram_app.UserRvAdapter;
 import com.example.faketagram_app.model.Photographs;
 import com.squareup.picasso.Picasso;
@@ -116,7 +118,22 @@ public class ProfileFragment extends Fragment {
         GridLayoutManager glm = new GridLayoutManager(getContext(), 3);
         rv.setLayoutManager(glm);
 
+        Intent intent = new Intent(getActivity(), PhotographActivity.class);
         adapter = new ImageRvAdapter(photographsList);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("photographSelectedId", photographsList.get
+                        (rv.getChildAdapterPosition(v)).getPhotograph_id());
+                intent.putExtra("photographSelectedPublishDate", photographsList.get
+                        (rv.getChildAdapterPosition(v)).getPublish_date());
+                intent.putExtra("photographSelectedImageStoragePath", photographsList.get
+                        (rv.getChildAdapterPosition(v)).getImage_storage_path());
+                intent.putExtra("photographUserId", photographsList.get
+                        (rv.getChildAdapterPosition(v)).getUser_id());
+                startActivity(intent);
+            }
+        });
         rv.setAdapter(adapter);
     }
 }

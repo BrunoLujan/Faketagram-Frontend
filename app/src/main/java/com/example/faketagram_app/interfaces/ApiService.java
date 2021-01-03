@@ -1,5 +1,6 @@
 package com.example.faketagram_app.interfaces;
 
+import com.example.faketagram_app.FavouriteResponse;
 import com.example.faketagram_app.FollowResponse;
 import com.example.faketagram_app.LoginResponse;
 import com.example.faketagram_app.StatusRequest;
@@ -83,5 +84,23 @@ public interface ApiService {
 
  @GET("{user_id}/getUserPhotographs")
  Call<List<Photographs>> getPhotographsByUserId(@Header("Authorization") String authToken, @Path("user_id") int user_id);
+
+ @POST("{photograph_id}/addToFavourites")
+ Call<ResponseBody> addToFavorites(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
+
+ @DELETE("{photograph_id}/deleteFromFavourites")
+ Call<ResponseBody> deleteFromFavourites(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
+
+ @GET("favourites")
+ Call<List<Photographs>> getFavourites(@Header("Authorization") String authToken);
+
+ @POST("{photograph_id}/addLikeToPhoto")
+ Call<ResponseBody> like(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
+
+ @DELETE("{photograph_id}/deleteLikeFromPhoto")
+ Call<ResponseBody> dislike(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
+
+ @GET("{user_id}/getLikes")
+ Call<List<FavouriteResponse>> getLikesByUserId(@Header("Authorization") String authToken, @Path("user_id") int user_id);
 }
 

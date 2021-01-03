@@ -14,8 +14,11 @@
         android:theme="@style/Theme.Faketagram_app"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PhotographActivity"
+            android:label="Photograph"/>
+        <activity
             android:name=".UserProfileActivity"
-            android:label="User Profile"/>
+            android:label="User Profile" />
         <activity
             android:name=".UploadPhoto"
             android:label="Upload Photo" />

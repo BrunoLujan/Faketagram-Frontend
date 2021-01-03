@@ -94,6 +94,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Constant.Message(getApplicationContext(), "Followed");
+                    initializeUnfollowButton();
                 } else  {
                     Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
                     Log.d("ERROR-UserProfileActivity-followUser-onResponse", response.message());
@@ -106,8 +107,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 Log.d("ERROR USER PROFILE ACTIVITY", t.getMessage());
             }
         });
-        initializeUnfollowButton();
-        buttonCount = 0;
     }
 
     private void unfollowUser() {
