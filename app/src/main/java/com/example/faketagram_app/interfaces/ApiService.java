@@ -115,5 +115,8 @@ public interface ApiService {
  @Headers({
          "Accept: identity"})
  Call<List<Comments>> getCommentsByPhotographId(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
+
+ @GET("getFeedPhotographs")
+ Call<List<Photographs>> getFeedPhotographs(@Header("Authorization") String authToken);
 }
 

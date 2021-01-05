@@ -38,7 +38,6 @@ public class UserRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.users = users;
     }
 
-
     @NonNull
     @Override
     public UserRvAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){

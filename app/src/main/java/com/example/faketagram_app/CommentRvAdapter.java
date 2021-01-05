@@ -54,7 +54,7 @@ public class CommentRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CommentRvAdapter.ViewHolder vh = (CommentRvAdapter.ViewHolder) holder;
 
-        getImage(vh,commentsList.get(position).getUser_id());
+        getUserImageProfile(vh, commentsList.get(position).getUser_id());
 
         vh.tvComment.setText(commentsList.get(position).getComment());
         vh.tvPublishDate.setText(commentsList.get(position).getPublish_date());
@@ -66,7 +66,7 @@ public class CommentRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return commentsList.size();
     }
 
-    private void getImage(ViewHolder vh, int userId) {
+    private void getUserImageProfile(ViewHolder vh, int userId) {
         Call<Users> call = Constant.CONNECTION.getUserById(Constant.AUTHTOKEN, userId);
         call.enqueue(new Callback<Users>() {
             @Override
@@ -77,13 +77,13 @@ public class CommentRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                     Log.d("SI", response.message());
                 } else {
-                    Log.d("ERROR-PhotographActivity-getComments-onResponse", response.message());
+                    Log.d("ERROR-CommentRvAdapter-getComments-onResponse", response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-                Log.d("ERROR-PhotographActivity-getComments-onFailure", t.getMessage());
+                Log.d("ERROR-CommentRvAdapter-getComments-onFailure", t.getMessage());
             }
         });
     }
