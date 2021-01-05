@@ -16,8 +16,8 @@
         <ImageView
             android:id="@+id/ivImagePhotograph"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="320dp"
+            android:layout_marginTop="10dp"
             app:srcCompat="@drawable/ic_image_photograph" />
 
         <LinearLayout
@@ -31,21 +31,61 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:textStyle="bold"
-                android:layout_marginLeft="20dp"
                 android:drawableLeft="@drawable/ic_image_nonlike"
                 android:backgroundTint="@color/black" />
 
+            <TextView
+                android:id="@+id/txtLikesPhotograph"
+                android:gravity="fill"
+                android:textAlignment="gravity"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:textColor="#FFFFFFFF"
+                android:text="likes"
+                android:layout_marginLeft="10dp"/>
+
             <Button
                 android:id="@+id/btnAddToFavouritePhotograph"
-                android:layout_width="240dp"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
-                android:text="Add to favourites"
                 android:layout_marginLeft="90dp"
-                android:backgroundTint="@color/yellow" />
+                android:drawableLeft="@drawable/ic_image_nonfavourite"
+                android:backgroundTint="@color/black" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txtCommentPhotograph"
+                android:gravity="fill"
+                android:textAlignment="gravity"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:textColor="#FFFFFFFF"
+                android:text="Click to write a comment"
+                android:textStyle="italic"/>
+
+            <Button
+                android:id="@+id/btnSendCommentPhotograph"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/yellow"
+                android:drawableRight="@drawable/ic_image_send"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPhotograph"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
 
     </LinearLayout>
 

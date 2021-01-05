@@ -1,9 +1,11 @@
 package com.example.faketagram_app.interfaces;
 
+import com.example.faketagram_app.CommentRequest;
 import com.example.faketagram_app.FavouriteResponse;
 import com.example.faketagram_app.FollowResponse;
 import com.example.faketagram_app.LoginResponse;
 import com.example.faketagram_app.StatusRequest;
+import com.example.faketagram_app.model.Comments;
 import com.example.faketagram_app.model.Photographs;
 import com.example.faketagram_app.model.Users;
 import com.example.faketagram_app.LoginRequest;
@@ -100,7 +102,18 @@ public interface ApiService {
  @DELETE("{photograph_id}/deleteLikeFromPhoto")
  Call<ResponseBody> dislike(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
 
- @GET("{user_id}/getLikes")
+ @GET("{user_id}/getLikesByUserId")
  Call<List<FavouriteResponse>> getLikesByUserId(@Header("Authorization") String authToken, @Path("user_id") int user_id);
+
+ @GET("{photograph_id}/getLikesByPhotographId")
+ Call<String> getLikesByPhotographId(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
+
+ @POST("{photograph_id}/addCommentToPhotograph")
+ Call<ResponseBody> commentPhotograph(@Header("Authorization") String authToken, @Body CommentRequest comment, @Path("photograph_id") int photograph_id);
+
+ @GET("{photograph_id}/getPhotographComments")
+ @Headers({
+         "Accept: identity"})
+ Call<List<Comments>> getCommentsByPhotographId(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
 }
 

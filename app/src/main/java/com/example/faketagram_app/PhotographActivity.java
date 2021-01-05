@@ -1,6 +1,8 @@
 package com.example.faketagram_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -8,11 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.faketagram_app.model.Comments;
 import com.example.faketagram_app.model.Photographs;
-import com.example.faketagram_app.model.Users;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -25,11 +28,16 @@ import retrofit2.Response;
 public class PhotographActivity extends AppCompatActivity {
 
     Intent intent;
+    RecyclerView rv;
+    CommentRvAdapter adapter;
 
     Photographs photographSelected = new Photographs();
+    List<Comments> commentsList;
 
     ImageView ivImagePhotograph;
-    Button btnLikePhotograph, btnAddToFavourites;
+    TextView txtLikesPhotograph;
+    EditText txtCommentPhotograph;
+    Button btnLikePhotograph, btnAddToFavourites, btnSendComment;
 
     int buttonLikeCount = 1;
     int buttonFavouriteCount = 1;
@@ -39,10 +47,13 @@ public class PhotographActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photograph);
 
+        rv = (RecyclerView) findViewById(R.id.rvPhotograph);
         ivImagePhotograph = (ImageView) findViewById(R.id.ivImagePhotograph);
-
+        txtLikesPhotograph = (TextView) findViewById(R.id.txtLikesPhotograph);
+        txtCommentPhotograph = (EditText) findViewById(R.id.txtCommentPhotograph);
         btnLikePhotograph = (Button) findViewById(R.id.btnLikePhotograph);
         btnAddToFavourites = (Button) findViewById(R.id.btnAddToFavouritePhotograph);
+        btnSendComment = (Button) findViewById(R.id.btnSendCommentPhotograph);
 
         initializePhotographSelected();
         initializePhotographActivity();
@@ -70,6 +81,17 @@ public class PhotographActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnSendComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!txtCommentPhotograph.getText().toString().isEmpty()) {
+                    sendComment();
+                } else {
+                    Constant.Message(getApplicationContext(), "Write comment first");
+                }
+            }
+        });
     }
 
     public void initializePhotographSelected() {
@@ -84,6 +106,8 @@ public class PhotographActivity extends AppCompatActivity {
         if (photographSelected.getImage_storage_path() != null) {
             Picasso.get().load(Constant.PROFILEIMAGE + photographSelected.getImage_storage_path()).fit().into(ivImagePhotograph);
         }
+        getLikes();
+        getComments();
     }
 
     public  void validateLike() {
@@ -119,7 +143,7 @@ public class PhotographActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     for(Photographs photoAux : response.body()){
                         if(photoAux.getPhotograph_id() == photographSelected.getPhotograph_id()) {
-                            initializeNoFavoriteOnButton();
+                            initializeFavoriteOnButton();
                         }
                     }
                 } else {
@@ -149,13 +173,15 @@ public class PhotographActivity extends AppCompatActivity {
     }
 
     private void initializeFavoriteOnButton() {
-        btnAddToFavourites.setText("Add to favourites");
-        buttonFavouriteCount = 1;
+        Drawable img = getApplicationContext().getResources().getDrawable(R.drawable.ic_image_favourite);
+        btnAddToFavourites.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+        buttonFavouriteCount = 0;
     }
 
     private void initializeNoFavoriteOnButton() {
-        btnAddToFavourites.setText("Delete from favourites");
-        buttonFavouriteCount = 0;
+        Drawable img = getApplicationContext().getResources().getDrawable(R.drawable.ic_image_nonfavourite);
+        btnAddToFavourites.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+        buttonFavouriteCount = 1;
     }
 
     private void like() {
@@ -165,6 +191,7 @@ public class PhotographActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     initializeLikeOnButton();
+                    getLikes();
                     Constant.Message(getApplicationContext(), "Like");
                 } else {
                     Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
@@ -187,6 +214,7 @@ public class PhotographActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     initializeDislikeOnButton();
+                    getLikes();
                     Constant.Message(getApplicationContext(), "Dislike");
                 } else {
                     Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
@@ -208,7 +236,7 @@ public class PhotographActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    initializeNoFavoriteOnButton();
+                    initializeFavoriteOnButton();
                     Constant.Message(getApplicationContext(), "Photo has been added to favourites");
                 } else {
                     Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
@@ -230,7 +258,7 @@ public class PhotographActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    initializeFavoriteOnButton();
+                    initializeNoFavoriteOnButton();
                     Constant.Message(getApplicationContext(), "Photo has been deleted from favourites");
                 } else {
                     Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
@@ -244,5 +272,81 @@ public class PhotographActivity extends AppCompatActivity {
                 Log.d("ERROR-PhotographActivity-deleteFromFavourites-onFailure", t.getMessage());
             }
         });
+    }
+
+    private void getLikes() {
+        Call<String> call = Constant.CONNECTION.getLikesByPhotographId(Constant.AUTHTOKEN, photographSelected.getPhotograph_id());
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                 if (response.isSuccessful()) {
+                    txtLikesPhotograph.setText(response.body() + " likes");
+                    txtLikesPhotograph.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+                } else {
+                     Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
+                     Log.d("ERROR-PhotographActivity-getLikes-onResponse", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Constant.Message(getApplicationContext(), t.getMessage());
+                Log.d("ERROR-PhotographActivity-getLikes-onFailure", t.getMessage());
+            }
+        });
+    }
+
+    private void getComments() {
+        Call<List<Comments>> call = Constant.CONNECTION.getCommentsByPhotographId(Constant.AUTHTOKEN, photographSelected.getPhotograph_id());
+        call.enqueue(new Callback<List<Comments>>() {
+            @Override
+            public void onResponse(Call<List<Comments>> call, Response<List<Comments>> response) {
+                if (response.isSuccessful()) {
+                    commentsList = response.body();
+                    buildRV();
+                } else {
+                    Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
+                    Log.d("ERROR-PhotographActivity-getComments-onResponse", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comments>> call, Throwable t) {
+                Constant.Message(getApplicationContext(), t.getMessage());
+                Log.d("ERROR-PhotographActivity-getComments-onFailure", t.getMessage());
+            }
+        });
+    }
+
+    private void sendComment() {
+        CommentRequest comment = new CommentRequest();
+        comment.setComment(txtCommentPhotograph.getText().toString());
+        Call<ResponseBody> call = Constant.CONNECTION.commentPhotograph(Constant.AUTHTOKEN, comment, photographSelected.getPhotograph_id());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Constant.Message(getApplicationContext(), "Comment has been added");
+                    getComments();
+                    txtCommentPhotograph.setText("");
+                } else {
+                    Constant.Message(getApplicationContext(), "Error, try again: " + response.message());
+                    Log.d("ERROR-PhotographActivity-sendComment-onResponse", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Constant.Message(getApplicationContext(), t.getMessage());
+                Log.d("ERROR-PhotographActivity-sendComment-onFailure", t.getMessage());
+            }
+        });
+    }
+
+    private void buildRV() {
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        rv.setLayoutManager(llm);
+        adapter = new CommentRvAdapter(commentsList);
+        rv.setAdapter(adapter);
     }
 }

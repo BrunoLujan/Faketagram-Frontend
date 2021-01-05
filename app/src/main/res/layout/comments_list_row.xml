@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="10">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivImageCommentsListRow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_width="0dp"/>
+
+    <TextView
+        android:layout_width="14dp"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:gravity="fill"
+        android:textAlignment="gravity"
+        android:id="@+id/tvCommentCommentsListRow"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_weight="4"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/yellow"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tvPublishDateCommentsListRow"
+        android:gravity="fill"
+        android:textAlignment="gravity"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/yellow"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+</LinearLayout>

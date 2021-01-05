@@ -1,6 +1,8 @@
 package com.example.faketagram_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.faketagram_app.model.Photographs;
 import com.example.faketagram_app.model.Users;
 import com.squareup.picasso.Picasso;
 
@@ -26,7 +29,11 @@ public class UserProfileActivity extends AppCompatActivity {
 
     Intent intent;
 
+    RecyclerView rv;
+    ImageRvAdapter adapter;
+
     Users userSelected = new Users();
+    List<Photographs> photographsList;
 
     ImageView ivImageUserProfile;
     TextView txtNamesUserProfile, txtStatusUSerProfile;
@@ -38,6 +45,8 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        rv = (RecyclerView) findViewById(R.id.rvUserProfile);
+
         ivImageUserProfile = (ImageView) findViewById(R.id.ivImageUserProfile);
         txtNamesUserProfile = (TextView) findViewById(R.id.txtNamesUserProfile);
         txtStatusUSerProfile = (TextView) findViewById(R.id.txtStatusUserProfile);
@@ -46,6 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         initializeUserSelected();
         initializeUserProfile();
+        initializeUserPhotos();
         validateFollow();
 
         btnFollow.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +95,27 @@ public class UserProfileActivity extends AppCompatActivity {
         } else {
             txtStatusUSerProfile.setText("");
         }
+    }
+
+    public void initializeUserPhotos() {
+        Call<List<Photographs>> call = Constant.CONNECTION.getPhotographsByUserId(Constant.AUTHTOKEN, userSelected.getUser_id());
+        call.enqueue(new Callback<List<Photographs>>() {
+            @Override
+            public void onResponse(Call<List<Photographs>> call, Response<List<Photographs>> response) {
+                if (response.isSuccessful()) {
+                    photographsList = response.body();
+                    buildRV();
+                } else {
+                    Constant.Message(getApplicationContext(),"Error-UserProfileActivity-initializeUserPhotos-onResponse");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Photographs>> call, Throwable t) {
+                Log.d("Error-ProfileFragment-initializeMyPhotos-onFailure: ", t.getMessage());
+                Constant.Message(getApplicationContext(),"Error-UserProfileActivity-initializeUserPhotos-onFailure");
+            }
+        });
     }
 
     private void followUser() {
@@ -165,5 +196,28 @@ public class UserProfileActivity extends AppCompatActivity {
     private void initializeUnfollowButton() {
         btnFollow.setText("Unfollow");
         buttonCount = 0;
+    }
+
+    private void buildRV() {
+        GridLayoutManager glm = new GridLayoutManager(getApplicationContext(), 3);
+        rv.setLayoutManager(glm);
+
+        Intent intent = new Intent(getApplicationContext(), PhotographActivity.class);
+        adapter = new ImageRvAdapter(photographsList);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("photographSelectedId", photographsList.get
+                        (rv.getChildAdapterPosition(v)).getPhotograph_id());
+                intent.putExtra("photographSelectedPublishDate", photographsList.get
+                        (rv.getChildAdapterPosition(v)).getPublish_date());
+                intent.putExtra("photographSelectedImageStoragePath", photographsList.get
+                        (rv.getChildAdapterPosition(v)).getImage_storage_path());
+                intent.putExtra("photographUserId", photographsList.get
+                        (rv.getChildAdapterPosition(v)).getUser_id());
+                startActivity(intent);
+            }
+        });
+        rv.setAdapter(adapter);
     }
 }
