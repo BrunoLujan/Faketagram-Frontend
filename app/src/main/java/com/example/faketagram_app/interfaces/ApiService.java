@@ -87,6 +87,9 @@ public interface ApiService {
  @GET("{user_id}/getUserPhotographs")
  Call<List<Photographs>> getPhotographsByUserId(@Header("Authorization") String authToken, @Path("user_id") int user_id);
 
+ @GET("{photograph_id}/getPhotographById")
+ Call<Photographs> getPhotographById(@Header("Authorization") String authToken, @Path("photograph_id") int user_id);
+
  @POST("{photograph_id}/addToFavourites")
  Call<ResponseBody> addToFavorites(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
 
@@ -94,7 +97,7 @@ public interface ApiService {
  Call<ResponseBody> deleteFromFavourites(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);
 
  @GET("favourites")
- Call<List<Photographs>> getFavourites(@Header("Authorization") String authToken);
+ Call<List<FavouriteResponse>> getFavourites(@Header("Authorization") String authToken);
 
  @POST("{photograph_id}/addLikeToPhoto")
  Call<ResponseBody> like(@Header("Authorization") String authToken, @Path("photograph_id") int photograph_id);

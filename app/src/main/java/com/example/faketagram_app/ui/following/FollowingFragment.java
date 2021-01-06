@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,9 +45,8 @@ import retrofit2.Response;
 public class FollowingFragment extends Fragment {
 
     RecyclerView rv;
+    SwipeRefreshLayout srl;
     View viewFragment;
-    EditText txtFollowingFragment;
-    Button btnFollowingFragment, btnShowFollowingFragment;
 
     List<FollowResponse> followingsList;
     List<Users> usersList = new ArrayList<>();
@@ -98,29 +98,20 @@ public class FollowingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewFragment = inflater.inflate(R.layout.fragment_following, container, false);
+        srl = viewFragment.findViewById(R.id.srlFollowingFragment);
         rv = viewFragment.findViewById(R.id.rvFollowingsFragment);
-        txtFollowingFragment = viewFragment.findViewById(R.id.txtSearchFollowing);
-        btnFollowingFragment = viewFragment.findViewById(R.id.btnSearchFollowing);
-        btnShowFollowingFragment = viewFragment.findViewById(R.id.btnShowFollowing);
 
-        btnFollowingFragment.setOnClickListener(new View.OnClickListener() {
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
-                if (!txtFollowingFragment.getText().toString().isEmpty()){
-
-                } else {
-                    Constant.Message(getContext(), "Complete the field");
-                }
-            }
-        });
-
-        btnShowFollowingFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            public void onRefresh() {
+                followingsList.clear();
+                usersList.clear();
                 initializeFollowings();
-                buildRV();
+                srl.setRefreshing(false);
             }
         });
+
+        initializeFollowings();
 
         return viewFragment;
     }
@@ -155,6 +146,7 @@ public class FollowingFragment extends Fragment {
                     if (response.isSuccessful()) {
                         usersList.add(counter, response.body());
                         counter++;
+                        buildRV();
                     } else {
                         Constant.Message(getContext(),"Error-FollowingFragment-getFollowings-onResponse");
                     }
@@ -176,7 +168,33 @@ public class FollowingFragment extends Fragment {
         rv.setLayoutManager(llm);
 
         adapter = new UserRvAdapter(usersList);
-        usersList.clear();
+
+        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("userSelectedId", usersList.get
+                        (rv.getChildAdapterPosition(v)).getUser_id());
+                intent.putExtra("userSelectedName", usersList.get
+                        (rv.getChildAdapterPosition(v)).getName());
+                intent.putExtra("userSelectedLastName", usersList.get
+                        (rv.getChildAdapterPosition(v)).getLastname());
+                intent.putExtra("userSelectedUsername", usersList.get
+                        (rv.getChildAdapterPosition(v)).getUsername());
+                intent.putExtra("userSelectedEmail", usersList.get
+                        (rv.getChildAdapterPosition(v)).getEmail());
+                intent.putExtra("userSelectedPassword", usersList.get
+                        (rv.getChildAdapterPosition(v)).getPassword());
+                intent.putExtra("userSelectedStatus", usersList.get
+                        (rv.getChildAdapterPosition(v)).getStatus());
+                intent.putExtra("userSelectedCellphone", usersList.get
+                        (rv.getChildAdapterPosition(v)).getCellphone());
+                intent.putExtra("userSelectedImage", usersList.get
+                        (rv.getChildAdapterPosition(v)).getImage_storage_path());
+                startActivity(intent);
+            }
+        });
+
         rv.setAdapter(adapter);
     }
 }

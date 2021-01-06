@@ -136,13 +136,13 @@ public class PhotographActivity extends AppCompatActivity {
     }
 
     public  void validateOnFavourites() {
-        Call<List<Photographs>> call = Constant.CONNECTION.getFavourites(Constant.AUTHTOKEN);
-        call.enqueue(new Callback<List<Photographs>>() {
+        Call<List<FavouriteResponse>> call = Constant.CONNECTION.getFavourites(Constant.AUTHTOKEN);
+        call.enqueue(new Callback<List<FavouriteResponse>>() {
             @Override
-            public void onResponse(Call<List<Photographs>> call, Response<List<Photographs>> response) {
+            public void onResponse(Call<List<FavouriteResponse>> call, Response<List<FavouriteResponse>> response) {
                 if (response.isSuccessful()) {
-                    for(Photographs photoAux : response.body()){
-                        if(photoAux.getPhotograph_id() == photographSelected.getPhotograph_id()) {
+                    for(FavouriteResponse favouriteAux : response.body()){
+                        if(favouriteAux.getPhotograph_id() == photographSelected.getPhotograph_id()) {
                             initializeFavoriteOnButton();
                         }
                     }
@@ -153,7 +153,7 @@ public class PhotographActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Photographs>> call, Throwable t) {
+            public void onFailure(Call<List<FavouriteResponse>> call, Throwable t) {
                 Constant.Message(getApplicationContext(), t.getMessage());
                 Log.d("ERROR-PhotographActivity-validateOnFavourites-onFailure", t.getMessage());
             }

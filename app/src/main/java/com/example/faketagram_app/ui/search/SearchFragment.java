@@ -168,6 +168,7 @@ public class SearchFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         rv.setAdapter(adapter);
     }
 }

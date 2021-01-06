@@ -24,7 +24,19 @@
 
 
         <TextView
-            android:id="@+id/tvNamesAndUsernameFeedListRow"
+            android:id="@+id/tvUsernameFeedListRow"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/yellow"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/tvPublishDateFeedListRow"
             android:layout_width="57dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
@@ -34,6 +46,7 @@
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"/>
+
 
     </LinearLayout>
 

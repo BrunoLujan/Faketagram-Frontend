@@ -1,10 +1,12 @@
 package com.example.faketagram_app.ui.follower;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.EditText;
 import com.example.faketagram_app.Constant;
 import com.example.faketagram_app.FollowResponse;
 import com.example.faketagram_app.R;
+import com.example.faketagram_app.UserProfileActivity;
 import com.example.faketagram_app.UserRvAdapter;
 import com.example.faketagram_app.model.Users;
 
@@ -34,9 +37,8 @@ import retrofit2.Response;
 public class FollowerFragment extends Fragment {
 
     RecyclerView rv;
+    SwipeRefreshLayout srl;
     View viewFragment;
-    EditText txtFollowerFragment;
-    Button btnFollowerFragment, btnShowFollowerFragment;
 
     List<FollowResponse> followersList;
     List<Users> usersList = new ArrayList<>();
@@ -88,29 +90,20 @@ public class FollowerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewFragment = inflater.inflate(R.layout.fragment_follower, container, false);
+        srl = viewFragment.findViewById(R.id.srlFollowerFragment);
         rv = viewFragment.findViewById(R.id.rvFollowersFragment);
-        txtFollowerFragment = viewFragment.findViewById(R.id.txtSearchFollower);
-        btnFollowerFragment = viewFragment.findViewById(R.id.btnSearchFollower);
-        btnShowFollowerFragment = viewFragment.findViewById(R.id.btnShowFollower);
 
-        btnFollowerFragment.setOnClickListener(new View.OnClickListener() {
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
-                if (!txtFollowerFragment.getText().toString().isEmpty()){
-
-                } else {
-                    Constant.Message(getContext(), "Complete the field");
-                }
-            }
-        });
-
-        btnShowFollowerFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            public void onRefresh() {
+                followersList.clear();
+                usersList.clear();
                 initializeFollowers();
-                buildRV();
+                srl.setRefreshing(false);
             }
         });
+
+        initializeFollowers();
 
         return viewFragment;
     }
@@ -145,6 +138,7 @@ public class FollowerFragment extends Fragment {
                     if (response.isSuccessful()) {
                         usersList.add(counter, response.body());
                         counter++;
+                        buildRV();
                     } else {
                         Constant.Message(getContext(),"Error-FollowersFragment-getFollowers-onResponse");
                     }
@@ -166,7 +160,33 @@ public class FollowerFragment extends Fragment {
         rv.setLayoutManager(llm);
 
         adapter = new UserRvAdapter(usersList);
-        usersList.clear();
+
+        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("userSelectedId", usersList.get
+                        (rv.getChildAdapterPosition(v)).getUser_id());
+                intent.putExtra("userSelectedName", usersList.get
+                        (rv.getChildAdapterPosition(v)).getName());
+                intent.putExtra("userSelectedLastName", usersList.get
+                        (rv.getChildAdapterPosition(v)).getLastname());
+                intent.putExtra("userSelectedUsername", usersList.get
+                        (rv.getChildAdapterPosition(v)).getUsername());
+                intent.putExtra("userSelectedEmail", usersList.get
+                        (rv.getChildAdapterPosition(v)).getEmail());
+                intent.putExtra("userSelectedPassword", usersList.get
+                        (rv.getChildAdapterPosition(v)).getPassword());
+                intent.putExtra("userSelectedStatus", usersList.get
+                        (rv.getChildAdapterPosition(v)).getStatus());
+                intent.putExtra("userSelectedCellphone", usersList.get
+                        (rv.getChildAdapterPosition(v)).getCellphone());
+                intent.putExtra("userSelectedImage", usersList.get
+                        (rv.getChildAdapterPosition(v)).getImage_storage_path());
+                startActivity(intent);
+            }
+        });
+
         rv.setAdapter(adapter);
     }
 }

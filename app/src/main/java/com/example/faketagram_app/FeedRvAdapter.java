@@ -28,13 +28,14 @@ public class FeedRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivUserProfileImage, ivImage;
-        TextView tvNamesAndUsername;
+        TextView tvUsername, tvPublishDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivUserProfileImage = itemView.findViewById(R.id.ivUserProfileImageFeedListRow);
             ivImage = itemView.findViewById(R.id.ivImageFeedListRow);
-            tvNamesAndUsername = itemView.findViewById(R.id.tvNamesAndUsernameFeedListRow);
+            tvUsername = itemView.findViewById(R.id.tvUsernameFeedListRow);
+            tvPublishDate = itemView.findViewById(R.id.tvPublishDateFeedListRow);
         }
     }
 
@@ -63,6 +64,8 @@ public class FeedRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             Picasso.get().load(Constant.PROFILEIMAGE + photographsList.get(position).getImage_storage_path()).fit().into(vh.ivImage);
         }
 
+        vh.tvPublishDate.setText(photographsList.get(position).getPublish_date());
+
     }
 
     public void getUserById(ViewHolder vh, int userId) {
@@ -74,8 +77,7 @@ public class FeedRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     if (response.body().getImage_storage_path() != null) {
                         Picasso.get().load(Constant.PROFILEIMAGE + response.body().getImage_storage_path()).fit().into(vh.ivUserProfileImage);
                     }
-                    vh.tvNamesAndUsername.setText(response.body().getName() + " " +
-                            response.body().getLastname() + " - @" + response.body().getUsername());
+                    vh.tvUsername.setText(response.body().getUsername());
                 } else {
                     Log.d("ERROR-FeedRvAdapter-getUserById-onResponse", response.message());
                 }

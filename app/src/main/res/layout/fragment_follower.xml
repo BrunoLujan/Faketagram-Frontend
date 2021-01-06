@@ -6,43 +6,21 @@
     android:background="@color/black"
     tools:context=".ui.follower.FollowerFragment">
 
-    <EditText
-        android:id="@+id/txtSearchFollower"
-        android:layout_width="255dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_gravity="fill"
-        android:background="@drawable/edit_text_view"
-        android:maxLines="1" />
-
-    <Button
-        android:id="@+id/btnSearchFollower"
-        android:layout_width="55dp"
-        android:layout_height="41dp"
-        android:layout_marginHorizontal="270dp"
-        android:layout_marginTop="17dp"
-        android:backgroundTint="@color/yellow"
-        android:drawableLeft="@drawable/ic_image_search"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnShowFollower"
-        android:layout_width="55dp"
-        android:layout_height="41dp"
-        android:layout_marginHorizontal="330dp"
-        android:layout_marginTop="17dp"
-        android:backgroundTint="@color/yellow"
-        android:drawableLeft="@drawable/ic_show_black"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFollowersFragment"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="20dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlFollowerFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFollowersFragment"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </FrameLayout>
