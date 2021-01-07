@@ -14,7 +14,10 @@
         android:layout_marginHorizontal="25dp"
         android:layout_gravity="fill"
         android:background="@drawable/edit_text_view"
-        android:maxLines="1" />
+        android:ems="10"
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="30" />
 
     <Button
         android:id="@+id/btnSearch"

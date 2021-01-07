@@ -74,6 +74,7 @@
             android:gravity="top"
             android:inputType="textMultiLine"
             android:text="My status"
+            android:maxLength="79"
             android:textColor="@color/white" />
 
         <Button
@@ -88,6 +89,5 @@
             android:backgroundTint="@color/yellow" />
 
     </LinearLayout>
-
 
 </LinearLayout>

@@ -17,5 +17,7 @@
             android:clickable="true"
             android:padding="13dp"
             app:srcCompat="@drawable/ic_image_reaction"/>
+
     </RelativeLayout>
+
 </layout>

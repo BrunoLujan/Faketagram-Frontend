@@ -50,7 +50,11 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validate()){
-                    signUp();
+                    if (txtPassword.length() >= 8) {
+                        signUp();
+                    } else {
+                        Constant.Message(getApplicationContext(), "Password has to be greater than 8 characters");
+                    }
                 } else {
                     Constant.Message(getApplicationContext(),"Complete all fields");
                 }
@@ -76,6 +80,7 @@ public class SignUp extends AppCompatActivity {
         if(txtPassword.getText().toString().isEmpty()) {
             return false;
         }
+
         return true;
     }
 

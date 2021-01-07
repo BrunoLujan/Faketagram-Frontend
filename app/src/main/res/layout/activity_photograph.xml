@@ -70,6 +70,7 @@
                 android:textSize="18dp"
                 android:textColor="#FFFFFFFF"
                 android:text="Click to write a comment"
+                android:maxLength="53"
                 android:textStyle="italic"/>
 
             <Button
